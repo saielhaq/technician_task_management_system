@@ -69,10 +69,27 @@ session_start();
                         <td><?php echo $row['status']; ?></td>
                         <td><?php echo $row['location']; ?></td>
                         <td>
-                            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                                <input type="hidden" name="accept_task_id" value="<?php echo $row['tid']; ?>">
-                                <button type="submit" name="accept_task" class="btn btn-success">Accepter</button>
-                            </form>
+                            <?php
+                            if ($row['uid'] === null) {
+                                ?>
+                                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                    <input type="hidden" name="accept_task_id" value="<?php echo $row['tid']; ?>">
+                                    <button type="submit" name="accept_task" class="btn btn-success">Accepter</button>
+                                </form>
+                                <?php
+                            } elseif ($row['uid'] == $_SESSION['uid']) {
+                                ?>
+                                <form method="POST" action="close_task.php">
+                                    <input type="hidden" name="close_task_id" value="<?php echo $row['tid']; ?>">
+                                    <button type="submit" name="close_task" class="btn btn-warning">Clôturer</button>
+                                </form>
+                                <?php
+                            } else {
+                                ?>
+                                <i>Tâche prise</i>
+                                <?php
+                            }
+                            ?>
                         </td>
                     </tr>
                     <?php
