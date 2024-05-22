@@ -41,15 +41,9 @@ if (isset($_POST['adminLogin'])) {
         <div id="login_page">
             <h3 style="color:#ffffff">Admin Login</h3><br>
             <form action="" method="post">
-                <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Adresse mail" required>
-                </div>
-                <div class="form-group mt-3">
-                    <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
-                </div>
-                <div class="form-group mt-3">
-                    <input type="submit" name="adminLogin" value="Login" class="btn btn-success w-100">
-                </div>
+                <input type="email" name="email" class="login_input" placeholder="Adresse mail" required>
+                <input type="password" name="password" class="login_input mt-3" placeholder="Mot de passe" required>
+                <input type="submit" name="userLogin" value="Login" class="login_btn mt-3">
             </form>
         </div>
     </div>

@@ -15,8 +15,8 @@
     <div id="home_page" class="d-flex justify-content-center align-items-center">
         <div class="text-center">
             <h3 style="color:#ffffff">Login</h3>
-            <a href="admin/admin_login.php" class="btn btn-success my-2">Admin</a>
-            <a href="user_login.php" class="btn btn-warning my-2">User</a>
+            <a href="admin/admin_login.php" style="text-decoration: none;" class="admin-button">Admin</a>
+            <a href="user_login.php" style="text-decoration: none;" class="user-button">User</a>
         </div>
     </div>
 </body>
