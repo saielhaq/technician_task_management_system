@@ -71,6 +71,12 @@ if ($res4) {
                     <td><a href="admin_dashboard.php" type="button">Dashboard</a></td>
                 </tr>
                 <tr>
+                    <td><a href="add_technician.php" type="button">Ajouter un technicien</a></td>
+                </tr>
+                <tr>
+                    <td><a href="manage_technician.php" type="button">Gérer les techniciens</a></td>
+                </tr>
+                <tr>
                     <td><a type="button" id="create_task">Créer tâche</a></td>
                 </tr>
                 <tr>

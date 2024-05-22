@@ -20,8 +20,6 @@ if (isset($_POST['edit_task'])) {
 <html lang="en">
 
 
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,6 +54,12 @@ if (isset($_POST['edit_task'])) {
             <table class="table">
                 <tr>
                     <td><a href="admin_dashboard.php" type="button">Dashboard</a></td>
+                </tr>
+                <tr>
+                    <td><a href="add_technician.php" type="button">Ajouter un technicien</a></td>
+                </tr>
+                <tr>
+                    <td><a href="manage_technician.php" type="button">Gérer les techniciens</a></td>
                 </tr>
                 <tr>
                     <td><a type="button" id="create_task">Créer tâche</a></td>
