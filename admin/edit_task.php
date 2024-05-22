@@ -2,23 +2,30 @@
 include ('../includes/connection.php');
 session_start();
 
-if (isset($_POST['edit_task'])) {
-    $id = $_SESSION['id'];
-    $getStatusQuery = "SELECT status AS currentStatus FROM tasks WHERE tid = $_GET[id]";
-    $statusRes = mysqli_query($con, $getStatusQuery);
-    if ($statusRes) {
-        $row = mysqli_fetch_array($statusRes);
-        $currStatus = $row['currentStatus'];
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['update_status'])) {
+        $task_id = $_POST['task_id'];
+        $new_status = $_POST['status'];
 
-    if ($_POST['status'] == $currStatus) {
-        header('Location: admin_dashboard.php');
-    } else {
-        $query = "UPDATE tasks SET status = '$_POST[newStatus]' WHERE tid = $_GET[id]";
-        mysqli_query($con, $query);
-        header('Location: admin_dashboard.php');
+        if (!empty($task_id) && !empty($new_status)) {
+            $task_id = mysqli_real_escape_string($con, $task_id);
+            $new_status = mysqli_real_escape_string($con, $new_status);
+
+            $query = "UPDATE tasks SET status = '$new_status' WHERE tid = '$task_id'";
+            $result = mysqli_query($con, $query);
+
+            if ($result) {
+                echo '<script>alert("Task status updated successfully.");</script>';
+                echo '<script>window.location.href="admin_dashboard.php";</script>';
+            } else {
+                echo '<script>alert("Failed to update task status.");</script>';
+            }
+        } else {
+            echo '<script>alert("Invalid task ID or status.");</script>';
+        }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +84,8 @@ if (isset($_POST['edit_task'])) {
                                 <option value="Annulé">Annulée</option>
                             </select>
                         </div>
-                        <input type="submit" class="btn btn-warning" name="edit_task" value="Modifier">
+                        <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
+                        <input type="submit" class="btn btn-warning" name="update_status" value="Modifier">
                     </form>
                 </div>
             </div>
