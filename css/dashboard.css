@@ -1,0 +1,62 @@
+/* Base and reset styles */
+body {
+  background-color: #2a3d45;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styles */
+#header {
+  width: 100%;
+  background-color: #2a3d45;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#header h3 {
+  margin: 0;
+  color: #ffffff;
+}
+
+#header b {
+  color: #ffdd57;
+}
+
+/* Left sidebar styles */
+#left-sidebar {
+  background-color: #2a3d45;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+}
+
+#left-sidebar .table {
+  width: 100%;
+}
+
+#left-sidebar .table td {
+  text-align: center;
+  padding: 15px 0;
+}
+
+#left-sidebar a {
+  color: #ffdd57;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+#left-sidebar a:hover {
+  color: #fcca3f;
+}
+
+#create_task,
+#manage_task {
+  cursor: pointer;
+}
+
+#right-sidebar {
+  padding: 35px;
+  padding-left: 350px;
+}
