@@ -27,6 +27,19 @@ body {
   padding: 20px;
   height: 100vh;
   position: fixed;
+  width: 250px;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #left-sidebar {
+    display: none;
+  }
+
+  #right-sidebar {
+    padding: 20px;
+    padding-left: 0;
+  }
 }
 
 #left-sidebar .table {
@@ -64,4 +77,10 @@ body {
 #right-sidebar {
   padding: 35px;
   padding-left: 350px;
+}
+
+@media (max-width: 768px) {
+  #right-sidebar {
+    padding-left: 20px;
+  }
 }

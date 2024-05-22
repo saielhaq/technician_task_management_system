@@ -3,10 +3,14 @@ include ('../includes/connection.php');
 session_start();
 
 if (isset($_POST['adminLogin'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $query = "SELECT email, password, name, id FROM admins WHERE email = '$email' AND password = '$password'";
-    $res = mysqli_query($con, $query);
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $password = mysqli_real_escape_string($con, $_POST['password']);
+    $query = "SELECT email, password, name, id FROM admins WHERE email = ? AND password = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "ss", $email, $password);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+
     if (mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
         $_SESSION['email'] = $row['email'];
@@ -14,6 +18,7 @@ if (isset($_POST['adminLogin'])) {
         $_SESSION['id'] = $row['id'];
 
         header('Location: admin_dashboard.php');
+        exit();
     } else {
         echo "<script>
             alert('Email ou mot de passe incorrect');
@@ -40,10 +45,10 @@ if (isset($_POST['adminLogin'])) {
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div id="login_page">
             <h3 style="color:#ffffff">Admin Login</h3><br>
-            <form action="" method="post">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <input type="email" name="email" class="login_input" placeholder="Adresse mail" required>
                 <input type="password" name="password" class="login_input mt-3" placeholder="Mot de passe" required>
-                <input type="submit" name="userLogin" value="Login" class="login_btn mt-3">
+                <input type="submit" name="adminLogin" value="Login" class="login_btn mt-3">
             </form>
         </div>
     </div>
