@@ -34,6 +34,9 @@ session_start();
                     <td><a href="manage_task.php" type="button" id="manage_task">Tâches</a></td>
                 </tr>
                 <tr>
+                    <td><a href="reports.php" type="button" id="reports">Rapports</a></td>
+                </tr>
+                <tr>
                     <td><a href="logout.php" type="button" id="logout_link">Se déconnecter</a></td>
                 </tr>
             </table>
@@ -78,12 +81,16 @@ session_start();
                                 </form>
                                 <?php
                             } elseif ($row['uid'] == $_SESSION['uid']) {
-                                ?>
-                                <form method="POST" action="close_task.php">
-                                    <input type="hidden" name="close_task_id" value="<?php echo $row['tid']; ?>">
-                                    <button type="submit" name="close_task" class="btn btn-warning">Clôturer</button>
-                                </form>
-                                <?php
+                                if ($row['status'] !== 'Terminé') {
+                                    ?>
+                                    <a href="close_task.php?tid=<?php echo $row['tid']; ?>" type="button"
+                                        class="btn btn-warning">Clôturer</a>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <i>Tâche clôturée</i>
+                                    <?php
+                                }
                             } else {
                                 ?>
                                 <i>Tâche prise</i>

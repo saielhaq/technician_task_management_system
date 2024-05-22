@@ -72,6 +72,9 @@ if ($res4) {
                     <td><a href="manage_task.php" type="button" id="manage_task">Tâches</a></td>
                 </tr>
                 <tr>
+                    <td><a href="reports.php" type="button" id="manage_task">Rapports</a></td>
+                </tr>
+                <tr>
                     <td style="text-align: center"><a href="logout.php" type="button" id="logout_link">Se
                             déconnecter</a></td>
                 </tr>

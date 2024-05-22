@@ -65,6 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td><a type="button" id="manage_task">Gérer tâches</a></td>
                 </tr>
                 <tr>
+                    <td><a href="reports.php" type="button" id="reports">Rapports</a></td>
+                </tr>
+                <tr>
                     <td><a href="../logout.php" type="button" id="logout_link">Se déconnecter</a></td>
                 </tr>
             </table>
