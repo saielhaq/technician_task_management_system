@@ -85,9 +85,9 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`tid`, `uid`, `description`, `start_date`, `end_date`, `status`, `location`, `creation_date`, `close_date`) VALUES
-(1, NULL, 'task1', '2024-05-27', '2024-05-31', 'Pending', 'Portugal', '0000-00-00', '0000-00-00'),
-(2, 1, 'task2', '2024-05-24', '2024-05-30', 'In progress', 'Morocco', '2024-05-23', '2024-05-23'),
-(3, 1, 'task3', '2024-06-20', '2024-06-30', 'Completed', 'dazdza', '2024-05-23', '2024-05-23');
+(1, NULL, 'task1', '2024-05-27', '2024-05-31', 'En attente', 'Portugal', '0000-00-00', '0000-00-00'),
+(2, 1, 'task2', '2024-05-24', '2024-05-30', 'En cours', 'Morocco', '2024-05-23', '2024-05-23'),
+(3, 1, 'task3', '2024-06-20', '2024-06-30', 'Terminé', 'dazdza', '2024-05-23', '2024-05-23');
 
 -- --------------------------------------------------------
 
