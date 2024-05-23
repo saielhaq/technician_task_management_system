@@ -56,7 +56,6 @@ if ($res4) {
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 
 <body>
@@ -101,11 +100,21 @@ if ($res4) {
             </table>
         </div>
         <div id="right-sidebar">
+
             <h3>Statistiques générales</h3>
-            <div style="width: 45%;">
-                <canvas id="myChart"></canvas>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="width: 45%;">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div id="taskIndicator"
+                    style="width: 45%; display: flex; align-items: center; justify-content: center;">
+                </div>
             </div>
             <script>
+                const pendingTasks = <?php echo $pending; ?>;
+                const inProgressTasks = <?php echo $en_cours; ?>;
+                const finishedTasks = <?php echo $finished; ?>;
+
                 const data = {
                     labels: [
                         'En attente',
@@ -114,7 +123,7 @@ if ($res4) {
                     ],
                     datasets: [{
                         label: 'Nombre de tâches',
-                        data: [<?php echo $pending; ?>, <?php echo $en_cours; ?>, <?php echo $finished; ?>],
+                        data: [pendingTasks, inProgressTasks, finishedTasks],
                         backgroundColor: [
                             'rgb(54, 162, 235)',
                             'rgb(255, 165, 0)',
@@ -132,6 +141,25 @@ if ($res4) {
                     document.getElementById('myChart'),
                     config
                 );
+
+                const taskDifference = pendingTasks - inProgressTasks;
+                const indicatorElement = document.getElementById('taskIndicator');
+                let indicatorColor = '';
+                let indicatorText = '';
+
+                if (taskDifference < 5) {
+                    indicatorColor = 'green';
+                    indicatorText = 'Situation Stable';
+                } else if (taskDifference >= 5 && taskDifference < 10) {
+                    indicatorColor = 'yellow';
+                    indicatorText = 'Attention Requise';
+                } else {
+                    indicatorColor = 'red';
+                    indicatorText = 'Situation Critique';
+                }
+
+                indicatorElement.style.backgroundColor = indicatorColor;
+                indicatorElement.innerHTML = `<span style="color: white; font-size: 1.5em;">${indicatorText}</span>`;
             </script>
         </div>
     </div>

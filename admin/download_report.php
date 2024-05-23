@@ -10,6 +10,7 @@ if (isset($_GET['report_id'])) {
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         $content = $row['content'];
+        $user_id = $row['uid'];
         $filename = "Report_" . $report_id . ".pdf";
 
         $pdf = new FPDF();
@@ -18,6 +19,17 @@ if (isset($_GET['report_id'])) {
         $pdf->Cell(0, 10, 'Rapport tache numero:' . $report_id, 0, 1, 'C');
         $pdf->SetFont('Arial', '', 12);
         $pdf->MultiCell(0, 10, $content);
+
+        $user_query = "SELECT name FROM users WHERE uid = '$user_id'";
+        $user_result = mysqli_query($con, $user_query);
+        if ($user_result) {
+            $user_row = mysqli_fetch_assoc($user_result);
+            $user_name = $user_row['name'];
+            $pdf->Ln(20);
+            $pdf->SetFont('Arial', 'I', 12);
+            $pdf->Cell(0, 10, 'Signature: ' . $user_name, 0, 1, 'L');
+        }
+
         $pdf->Output('D', $filename);
 
         exit;
