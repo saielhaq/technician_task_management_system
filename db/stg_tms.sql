@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : jeu. 23 mai 2024 à 13:59
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Host: 127.0.0.1
+-- Generated on: Thu, 23 May 2024 at 13:59
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `stg_tms`
+-- Database: `stg_tms`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `admins`
+-- Structure of table `admins`
 --
 
 CREATE TABLE `admins` (
@@ -36,7 +36,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `admins`
+-- Data dump for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `phone`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `admins` (`id`, `name`, `email`, `password`, `phone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reports`
+-- Structure of table `reports`
 --
 
 CREATE TABLE `reports` (
@@ -56,18 +56,16 @@ CREATE TABLE `reports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `reports`
+-- Data dump for table `reports`
 --
 
 INSERT INTO `reports` (`rid`, `tid`, `uid`, `content`) VALUES
-(14, 9, 1, 'tâche cloturée'),
-(15, 15, 1, 'wohoo'),
-(16, 16, 1, 'dazdazda');
+(1, 3, 1, 'task closed');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tasks`
+-- Structure of table `tasks`
 --
 
 CREATE TABLE `tasks` (
@@ -83,18 +81,18 @@ CREATE TABLE `tasks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `tasks`
+-- Data dump for table `tasks`
 --
 
 INSERT INTO `tasks` (`tid`, `uid`, `description`, `start_date`, `end_date`, `status`, `location`, `creation_date`, `close_date`) VALUES
-(10, 1, 'taskkkkk', '2024-05-27', '2024-05-31', 'Terminé', 'portugal', '0000-00-00', '0000-00-00'),
-(15, 1, 'final task', '2024-05-24', '2024-05-30', 'Terminé', 'Maroc', '2024-05-23', '2024-05-23'),
-(16, 1, 'azdazdadazdza', '2024-06-20', '2024-06-30', 'Terminé', 'dazdza', '2024-05-23', '2024-05-23');
+(1, NULL, 'task1', '2024-05-27', '2024-05-31', 'Pending', 'Portugal', '0000-00-00', '0000-00-00'),
+(2, 1, 'task2', '2024-05-24', '2024-05-30', 'In progress', 'Morocco', '2024-05-23', '2024-05-23'),
+(3, 1, 'task3', '2024-06-20', '2024-06-30', 'Completed', 'dazdza', '2024-05-23', '2024-05-23');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Structure of table `users`
 --
 
 CREATE TABLE `users` (
@@ -106,64 +104,64 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `users`
+-- Data dump for table `users`
 --
 
 INSERT INTO `users` (`uid`, `name`, `email`, `password`, `phone`) VALUES
-(1, 'Saad', 'saad@saad.com', '0000', 660094060);
+(1, 'Saad', 'user@user.com', 'user123', 660094060);
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `admins`
+-- Indexes for table `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `reports`
+-- Indexes for table `reports`
 --
 ALTER TABLE `reports`
   ADD PRIMARY KEY (`rid`);
 
 --
--- Index pour la table `tasks`
+-- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`tid`);
 
 --
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`uid`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `admins`
+-- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `reports`
+-- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
   MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT pour la table `tasks`
+-- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
   MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;

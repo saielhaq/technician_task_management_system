@@ -1,0 +1,7 @@
+admin credentials:
+    email: admin@admin.com
+    password: admin132
+
+user credentials:
+    email: user@user.com
+    password: user123
