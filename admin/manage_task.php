@@ -13,7 +13,7 @@
             <th>Date fin</th>
             <th>Status</th>
             <th>Locatisation</th>
-            <th>Action</th>
+            <th colspan="2">Action</th>
         </tr>
         <?php
         include ('../includes/connection.php');
@@ -32,7 +32,7 @@
         $query = "SELECT *, IFNULL(u.name, '') AS user_name FROM tasks t LEFT JOIN users u ON t.uid = u.uid";
         $res = mysqli_query($con, $query);
         while ($row = mysqli_fetch_assoc($res)) {
-            echo "<tr><td>{$num}</td><td>" . ($row['user_name'] !== null ? $row['user_name'] : "") . "</td><td>{$row['description']}</td><td>{$row['start_date']}</td><td>{$row['end_date']}</td><td>{$row['status']}</td><td>{$row['location']}</td><td><a href='edit_task.php?id={$row['tid']}' class='btn btn-warning'>Modifier</a>|<form method='POST' action='{$_SERVER['PHP_SELF']}' style='display:inline;'><input type='hidden' name='delete_id' value='{$row['tid']}'><button type='submit' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cette tâche ?\");'>Supprimer</button></form></td></tr>";
+            echo "<tr><td>{$num}</td><td>" . ($row['user_name'] !== null ? $row['user_name'] : "") . "</td><td>{$row['description']}</td><td>{$row['start_date']}</td><td>{$row['end_date']}</td><td>{$row['status']}</td><td>{$row['location']}</td><td><a href='edit_task.php?id={$row['tid']}' class='btn btn-warning'>Modifier</a></td><td><form method='POST' action='{$_SERVER['PHP_SELF']}' style='display:inline;'><input type='hidden' name='delete_id' value='{$row['tid']}'><button type='submit' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cette tâche ?\");'>Supprimer</button></form></td></tr>";
             $num++;
         } ?>
     </table>
