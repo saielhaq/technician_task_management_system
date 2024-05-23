@@ -75,7 +75,6 @@ session_start();
                     echo "<tr>";
                     echo "<td>" . $num++ . "</td>";
                     echo "<td>" . $row["description"] . "</td>";
-                    echo "<td>" . $row["name"] . "</td>";
                     echo "<td>" . $row["content"] . "</td>";
                     echo "<td><a href='download_report.php?report_id=" . $row['rid'] . "' class='btn btn-success'>Télécharger</a></td>";
                     echo "<td><a href='edit_report.php?report_id=" . $row['rid'] . "' class='btn btn-warning'>Modifier</a></td>";
