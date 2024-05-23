@@ -43,6 +43,8 @@ if ($res4) {
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -79,9 +81,40 @@ if ($res4) {
             </table>
         </div>
         <div id="right-sidebar">
-            <h3>Tâches disponibles: <?php echo $available; ?></h3>
-            <h3>Mes tâches en cours: <?php echo $en_cours; ?></h3>
-            <h3>Mes tâches terminées: <?php echo $finished; ?></h3>
+            <div>
+                <h3>Mes statistiques:</h3>
+                <div style="width: 45%;">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <script>
+                    const data = {
+                        labels: [
+                            'En attente',
+                            'En cours',
+                            'Terminé'
+                        ],
+                        datasets: [{
+                            label: 'Nombre de tâches',
+                            data: [<?php echo $available; ?>, <?php echo $en_cours; ?>, <?php echo $finished; ?>],
+                            backgroundColor: [
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 165, 0)',
+                                'rgb(0, 128, 0)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    };
+                    const config = {
+                        type: 'doughnut',
+                        data: data,
+                        options: {}
+                    };
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
+                </script>
+            </div>
         </div>
     </div>
 </body>
