@@ -1,31 +1,26 @@
 <?php
-include ('../includes/connection.php');
+include ("../includes/connection.php");
 session_start();
 
-$query = "select count(tid) as count from tasks";
-$query2 = "select count(tid) as pending from tasks where status = 'En attente'";
-$query3 = "select count(tid) as finished from tasks where status = 'Terminé'";
-$query4 = "select count(tid) as en_cours from tasks where status = 'En cours'";
-$res = mysqli_query($con, $query);
-$res2 = mysqli_query($con, $query2);
-$res3 = mysqli_query($con, $query3);
-$res4 = mysqli_query($con, $query4);
-if ($res) {
-    $row = mysqli_fetch_array($res);
-    $total = $row['count'];
+$currentMonth = date('m');
+$currentYear = date('Y');
+$taskQuery = "SELECT DAY(creation_date) as day, COUNT(*) as task_count FROM tasks WHERE YEAR(creation_date) = '$currentYear' AND MONTH(creation_date) = '$currentMonth' GROUP BY DAY(creation_date)";
+$taskResult = mysqli_query($con, $taskQuery);
+$daysInMonth = date('t');
+$monthlyTaskData = array_fill(1, $daysInMonth, 0);
+
+while ($row = mysqli_fetch_assoc($taskResult)) {
+    $monthlyTaskData[$row['day']] = (int) $row['task_count'];
 }
-if ($res2) {
-    $row = mysqli_fetch_array($res2);
-    $pending = $row['pending'];
+
+$completedTaskQuery = "SELECT DAY(close_date) as day, COUNT(*) as task_count FROM tasks WHERE YEAR(close_date) = '$currentYear' AND MONTH(close_date) = '$currentMonth' AND status = 'Terminé' GROUP BY DAY(close_date)";
+$completedTaskResult = mysqli_query($con, $completedTaskQuery);
+$monthlyCompletedTaskData = array_fill(1, $daysInMonth, 0);
+
+while ($row = mysqli_fetch_assoc($completedTaskResult)) {
+    $monthlyCompletedTaskData[$row['day']] = (int) $row['task_count'];
 }
-if ($res3) {
-    $row = mysqli_fetch_array($res3);
-    $finished = $row['finished'];
-}
-if ($res4) {
-    $row = mysqli_fetch_array($res4);
-    $en_cours = $row['en_cours'];
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +50,7 @@ if ($res4) {
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -99,12 +95,52 @@ if ($res4) {
             </table>
         </div>
         <div id="right-sidebar">
-            <h3>Tâches total: <?php echo $total; ?></h3>
-            <h3>Tâches en attente: <?php echo $pending; ?></h3>
-            <h3>Tâches en cours: <?php echo $en_cours; ?></h3>
-            <h3>Tâches terminées: <?php echo $finished; ?></h3>
+            <h3>Statistiques du mois</h3>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+
+            <script>
+                const labels = Array.from({ length: <?php echo $daysInMonth; ?>}, (_, i) => i + 1);
+                const data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Tâches crées',
+                            data: <?php echo json_encode(array_values($monthlyTaskData)); ?>,
+                            fill: false,
+                            borderColor: 'rgba(75, 192, 192, 0.5)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Tâches terminées',
+                            data: <?php echo json_encode(array_values($monthlyCompletedTaskData)); ?>,
+                            fill: false,
+                            borderColor: 'rgba(255, 205, 86, 0.5)',
+                            tension: 0.1
+                        }]
+                };
+                const config = {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }
+                        }
+                    }
+                };
+
+                var myChart = new Chart(document.getElementById('myChart'), config);
+            </script>
+
         </div>
     </div>
+
 </body>
 
 </html>

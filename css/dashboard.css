@@ -63,7 +63,8 @@ body {
 
 #create_task,
 #manage_task,
-#manage_technicians {
+#manage_technicians,
+#statistics {
   cursor: pointer;
   display: block;
   color: #ffa500;
@@ -72,7 +73,8 @@ body {
 
 #create_task:hover,
 #manage_task:hover,
-#manage_technicians:hover {
+#manage_technicians:hover,
+#statistics:hover {
   color: #ffd700;
 }
 

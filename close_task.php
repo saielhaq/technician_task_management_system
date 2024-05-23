@@ -4,7 +4,8 @@ session_start();
 
 
 if (isset($_POST['close_task'])) {
-    $query = "UPDATE tasks SET status = 'Terminé' WHERE tid = '$_POST[task_id]'";
+    $currentDate = date('Y-m-d');
+    $query = "UPDATE tasks SET status = 'Terminé', close_date = '$currentDate' WHERE tid = '$_POST[task_id]'";
     $res = mysqli_query($con, $query);
     $reportQuery = "INSERT INTO reports VALUES (NULL, '" . $_POST['task_id'] . "', '" . $_SESSION['uid'] . "', '$_POST[rapport]')";
     $reportResult = mysqli_query($con, $reportQuery);

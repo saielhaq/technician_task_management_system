@@ -25,6 +25,11 @@ session_start();
                 $("#right-sidebar").load("./manage_task.php");
             });
         });
+        $(document).ready(function () {
+            $("#manage_technicians").click(function () {
+                $("#right-sidebar").load("./manage_technicians.php");
+            });
+        });
     </script>
 </head>
 
@@ -53,6 +58,9 @@ session_start();
                 </tr>
                 <tr>
                     <td><a type="button" id="manage_task">Gérer tâches</a></td>
+                </tr>
+                <tr>
+                    <td><a type="button" href="statistics.php">Statistiques tâches</a></td>
                 </tr>
                 <tr>
                     <td><a href="reports.php" type="button" id="reports">Rapports</a></td>

@@ -1,7 +1,8 @@
 <?php
 include ('../includes/connection.php');
 if (isset($_POST['create_task'])) {
-    $query = "insert into tasks values(null, null, '$_POST[description]', '$_POST[start_date]', '$_POST[end_date]', 'En attente', '$_POST[adress]')";
+    $currentDate = date('Y-m-d');
+    $query = "INSERT INTO tasks VALUES (NULL, NULL, '$_POST[description]', '$_POST[start_date]', '$_POST[end_date]', 'En attente', '$_POST[adress]', '$currentDate', NULL)";
     $res = mysqli_query($con, $query);
     if ($res) {
         echo "<script>

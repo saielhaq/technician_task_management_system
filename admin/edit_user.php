@@ -16,6 +16,23 @@ if (isset($_GET['uid'])) {
         <link rel="stylesheet" href="../css/dashboard.css">
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../includes/jquery-3.7.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#create_task").click(function () {
+                    $("#right-sidebar").load("./create_task.php");
+                });
+            });
+            $(document).ready(function () {
+                $("#manage_task").click(function () {
+                    $("#right-sidebar").load("./manage_task.php");
+                });
+            });
+            $(document).ready(function () {
+                $("#manage_technicians").click(function () {
+                    $("#right-sidebar").load("./manage_technicians.php");
+                });
+            });
+        </script>
 
         <body>
             <div id="header" class="container-fluid">
@@ -46,6 +63,9 @@ if (isset($_GET['uid'])) {
                         </tr>
                         <tr>
                             <td><a type="button" id="manage_task">Gérer tâches</a></td>
+                        </tr>
+                        <tr>
+                            <td><a type="button" href="statistics.php">Statistiques tâches</a></td>
                         </tr>
                         <tr>
                             <td><a href="reports.php" type="button" id="reports">Rapports</a></td>
