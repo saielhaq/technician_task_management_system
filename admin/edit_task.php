@@ -3,25 +3,35 @@ include ('../includes/connection.php');
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['update_status'])) {
+    if (isset($_POST['update_task'])) {
         $task_id = $_POST['task_id'];
         $new_status = $_POST['status'];
+        $new_description = $_POST['description'];
+        $new_location = $_POST['location'];
+        $new_start_date = $_POST['start_date'];
+        $new_end_date = $_POST['end_date'];
 
-        if (!empty($task_id) && !empty($new_status)) {
+        if (!empty($task_id) && !empty($new_status) && !empty($new_description) && !empty($new_location) && !empty($new_start_date) && !empty($new_end_date)) {
             $task_id = mysqli_real_escape_string($con, $task_id);
             $new_status = mysqli_real_escape_string($con, $new_status);
+            $new_description = mysqli_real_escape_string($con, $new_description);
+            $new_location = mysqli_real_escape_string($con, $new_location);
 
-            $query = "UPDATE tasks SET status = '$new_status' WHERE tid = '$task_id'";
+
+
+            $query = "UPDATE tasks SET status = '$new_status', description = '$new_description', location = '$new_location', start_date = '$new_start_date', end_date = '$new_end_date' WHERE tid = '$task_id'";
             $result = mysqli_query($con, $query);
 
             if ($result) {
-                echo '<script>alert("Task status updated successfully.");</script>';
+                echo '<script>alert("Task updated successfully.");</script>';
                 echo '<script>window.location.href="admin_dashboard.php";</script>';
             } else {
-                echo '<script>alert("Failed to update task status.");</script>';
+                echo '<script>alert("Failed to update task.");</script>';
+                echo '<script>window.location.href="admin_dashboard.php";</script>';
             }
         } else {
-            echo '<script>alert("Invalid task ID or status.");</script>';
+            echo '<script>alert("Invalid task ID or fields are empty.");</script>';
+            echo '<script>window.location.href="admin_dashboard.php";</script>';
         }
     }
 }
@@ -83,18 +93,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-md-4 m-auto">
                     <h3><i class="fa fa-solid fa-list"></i> Modifier la tâche</h3>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
+
+                        <?php
+                        include ('../includes/connection.php');
+                        $task_id = $_GET['id'];
+                        $query = "SELECT * FROM tasks WHERE tid = '$task_id'";
+                        $result = mysqli_query($con, $query);
+                        $task = mysqli_fetch_assoc($result);
+                        ?>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control"
+                                required><?php echo htmlspecialchars($task['description']); ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date de début</label>
+                            <input type="date" name="start_date" class="form-control"
+                                value="<?php echo $task['start_date']; ?>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date de fin</label>
+                            <input type="date" name="end_date" class="form-control"
+                                value="<?php echo $task['end_date']; ?>" required>
+                        </div>
+
                         <div class="form-group">
                             <label>Status</label>
                             <select name="status" id="status" class="form-control">
-                                <option value="">--Selectionner--</option>
+                                <option value="<?php echo $task['status']; ?>">--Sélectionner--</option>
                                 <option value="En attente">En attente</option>
                                 <option value="En cours">En cours</option>
                                 <option value="Terminé">Terminée</option>
                                 <option value="Annulé">Annulée</option>
                             </select>
                         </div>
-                        <input type="hidden" name="task_id" value="<?php echo $_GET['id']; ?>">
-                        <input type="submit" class="btn btn-warning" name="update_status" value="Modifier">
+
+                        <div class="form-group">
+                            <label>Localisation</label>
+                            <input type="text" name="location" class="form-control"
+                                value="<?php echo htmlspecialchars($task['location']); ?>" required>
+                        </div>
+
+                        <input type="submit" class="btn btn-warning" name="update_task" value="Modifier">
                     </form>
                 </div>
             </div>
