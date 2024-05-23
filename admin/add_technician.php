@@ -6,7 +6,7 @@ if (isset($_POST['userRegistration'])) {
     if ($res) {
         echo "<script>
             alert('Utilisateur créé avec succès');
-            window.location.href = 'manage_technicians.php';
+            window.location.href = 'admin_dashboard.php';
         </script>";
     } else {
         echo "<script>
@@ -47,7 +47,7 @@ if (isset($_POST['userRegistration'])) {
                     <input type="text" name="mobile" class="form-control" placeholder="Numéro de téléphone" required>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="submit" name="userRegistration" value="Register" class="btn btn-success w-100">
+                    <input type="submit" name="userRegistration" value="Ajouter" class="btn btn-success w-100">
                 </div>
             </form>
         </div>

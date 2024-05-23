@@ -62,7 +62,8 @@ body {
 }
 
 #create_task,
-#manage_task {
+#manage_task,
+#manage_technicians {
   cursor: pointer;
   display: block;
   color: #ffa500;
@@ -70,7 +71,8 @@ body {
 }
 
 #create_task:hover,
-#manage_task:hover {
+#manage_task:hover,
+#manage_technicians:hover {
   color: #ffd700;
 }
 
