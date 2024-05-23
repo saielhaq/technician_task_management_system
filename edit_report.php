@@ -58,10 +58,10 @@ if (isset($_POST['edit_task'])) {
                     <td><a href="admin_dashboard.php" type="button">Dashboard</a></td>
                 </tr>
                 <tr>
-                    <td><a type="button" id="create_task">Créer tâche</a></td>
+                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches disponibles</a></td>
                 </tr>
                 <tr>
-                    <td><a type="button" id="manage_task">Gérer tâches</a></td>
+                    <td><a href="user_tasks.php" type="button" id="user_tasks">Mes tâches</a></td>
                 </tr>
                 <tr>
                     <td><a href="reports.php" type="button" id="reports">Rapports</a></td>

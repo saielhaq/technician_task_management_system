@@ -60,7 +60,10 @@ if (isset($_POST['close_task'])) {
                     <td style="text-align: center"><a href="user_dashboard.php" type="button">Dashboard</a></td>
                 </tr>
                 <tr>
-                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches</a></td>
+                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches disponibles</a></td>
+                </tr>
+                <tr>
+                    <td><a href="user_tasks.php" type="button" id="user_tasks">Mes tâches</a></td>
                 </tr>
                 <tr>
                     <td><a href="reports.php" type="button" id="manage_task">Rapports</a></td>

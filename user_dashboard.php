@@ -72,7 +72,7 @@ if ($res4) {
                     <td><a href="manage_task.php" type="button" id="manage_task">Tâches disponibles</a></td>
                 </tr>
                 <tr>
-                    <td><a href="manage_task.php" type="button" id="manage_task">Mes tâches</a></td>
+                    <td><a href="user_tasks.php" type="button" id="user_tasks">Mes tâches</a></td>
                 </tr>
                 <tr>
                     <td><a href="reports.php" type="button" id="manage_task">Rapports</a></td>

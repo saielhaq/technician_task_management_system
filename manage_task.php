@@ -31,7 +31,10 @@ session_start();
                     <td><a href="user_dashboard.php" type="button">Dashboard</a></td>
                 </tr>
                 <tr>
-                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches</a></td>
+                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches disponibles</a></td>
+                </tr>
+                <tr>
+                    <td><a href="user_tasks.php" type="button" id="user_tasks">Mes tâches</a></td>
                 </tr>
                 <tr>
                     <td><a href="reports.php" type="button" id="reports">Rapports</a></td>
@@ -43,12 +46,11 @@ session_start();
         </div>
         <div id="right-sidebar">
             <center>
-                <h3>Toutes les tâches:</h3>
+                <h3>Tâches disponibles:</h3>
             </center>
             <table class="table">
                 <tr>
                     <th>N°</th>
-                    <th>Technicien</th>
                     <th>Description</th>
                     <th>Date debut</th>
                     <th>Date fin</th>
@@ -59,44 +61,22 @@ session_start();
                 <?php
                 include ('includes/connection.php');
                 $num = 1;
-                $query = "SELECT *, IFNULL(u.name, '') AS user_name FROM tasks t LEFT JOIN users u ON t.uid = u.uid";
+                $query = "SELECT * FROM tasks t WHERE t.status = 'En attente'";
                 $res = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_assoc($res)) {
                     ?>
                     <tr>
                         <td><?php echo $num ?></td>
-                        <td><?php echo ($row['user_name'] !== null) ? $row['user_name'] : ""; ?></td>
                         <td><?php echo $row['description']; ?></td>
                         <td><?php echo $row['start_date']; ?></td>
                         <td><?php echo $row['end_date']; ?></td>
                         <td><?php echo $row['status']; ?></td>
                         <td><?php echo $row['location']; ?></td>
                         <td>
-                            <?php
-                            if ($row['uid'] === null) {
-                                ?>
-                                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                                    <input type="hidden" name="accept_task_id" value="<?php echo $row['tid']; ?>">
-                                    <button type="submit" name="accept_task" class="btn btn-success">Accepter</button>
-                                </form>
-                                <?php
-                            } elseif ($row['uid'] == $_SESSION['uid']) {
-                                if ($row['status'] !== 'Terminé') {
-                                    ?>
-                                    <a href="close_task.php?tid=<?php echo $row['tid']; ?>" type="button"
-                                        class="btn btn-warning">Clôturer</a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <i>Tâche clôturée</i>
-                                    <?php
-                                }
-                            } else {
-                                ?>
-                                <i>Tâche prise</i>
-                                <?php
-                            }
-                            ?>
+                            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                <input type="hidden" name="accept_task_id" value="<?php echo $row['tid']; ?>">
+                                <button type="submit" name="accept_task" class="btn btn-success">Accepter</button>
+                            </form>
                         </td>
                     </tr>
                     <?php

@@ -31,7 +31,10 @@ session_start();
                     <td><a href="user_dashboard.php" type="button">Dashboard</a></td>
                 </tr>
                 <tr>
-                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches</a></td>
+                    <td><a href="manage_task.php" type="button" id="manage_task">Tâches disponibles</a></td>
+                </tr>
+                <tr>
+                    <td><a href="user_tasks.php" type="button" id="user_tasks">Mes tâches</a></td>
                 </tr>
                 <tr>
                     <td><a href="reports.php" type="button" id="reports">Rapports</a></td>
@@ -59,9 +62,20 @@ session_start();
 
                 if (isset($_POST['delete_report_id'])) {
                     $delete_report_id = mysqli_real_escape_string($con, $_POST['delete_report_id']);
+
+                    $task_id_query = "SELECT tid FROM reports WHERE rid = '$delete_report_id'";
+                    $task_id_result = mysqli_query($con, $task_id_query);
+                    $task_id_row = mysqli_fetch_assoc($task_id_result);
+                    $task_id = $task_id_row['tid'];
+
                     $delete_query = "DELETE FROM reports WHERE rid = '$delete_report_id'";
                     $delete_result = mysqli_query($con, $delete_query);
+
                     if ($delete_result) {
+                        if ($task_id) {
+                            $update_task_query = "UPDATE tasks SET status = 'En cours' WHERE tid = '$task_id'";
+                            mysqli_query($con, $update_task_query);
+                        }
                         echo "<script>alert('Rapport supprimé avec succès');</script>";
                     } else {
                         echo "<script>alert('Échec de la suppression du rapport');</script>";
