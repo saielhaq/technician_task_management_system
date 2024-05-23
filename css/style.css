@@ -8,7 +8,7 @@ body {
 
 #home_page {
   height: 100vh;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background-color: #1e1e2d;
 }
 
 .text-center h3 {

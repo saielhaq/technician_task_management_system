@@ -91,10 +91,10 @@ if ($res4) {
             </table>
         </div>
         <div id="right-sidebar">
-            <h3>Nombre de tâches total: <?php echo $total; ?></h3>
-            <h3>Nombre de tâches en attente: <?php echo $pending; ?></h3>
-            <h3>Nombre de tâches en cours: <?php echo $en_cours; ?></h3>
-            <h3>Nombre de tâches terminées: <?php echo $finished; ?></h3>
+            <h3>Tâches total: <?php echo $total; ?></h3>
+            <h3>Tâches en attente: <?php echo $pending; ?></h3>
+            <h3>Tâches en cours: <?php echo $en_cours; ?></h3>
+            <h3>Tâches terminées: <?php echo $finished; ?></h3>
         </div>
     </div>
 </body>

@@ -2,21 +2,16 @@
 include ('includes/connection.php');
 session_start();
 
-$query = "select count(tid) as count from tasks";
 $query2 = "select count(tid) as pending from tasks where status = 'En attente'";
-$query3 = "select count(tid) as finished from tasks where status = 'Terminé'";
-$query4 = "select count(tid) as en_cours from tasks where status = 'En cours'";
-$res = mysqli_query($con, $query);
+$query3 = "select count(tid) as finished from tasks where status = 'Terminé' and uid = '$_SESSION[uid]'";
+$query4 = "select count(tid) as en_cours from tasks where status = 'En cours' and uid = '$_SESSION[uid]'";
 $res2 = mysqli_query($con, $query2);
 $res3 = mysqli_query($con, $query3);
 $res4 = mysqli_query($con, $query4);
-if ($res) {
-    $row = mysqli_fetch_array($res);
-    $total = $row['count'];
-}
+
 if ($res2) {
     $row = mysqli_fetch_array($res2);
-    $pending = $row['pending'];
+    $available = $row['pending'];
 }
 if ($res3) {
     $row = mysqli_fetch_array($res3);
@@ -84,10 +79,9 @@ if ($res4) {
             </table>
         </div>
         <div id="right-sidebar">
-            <h3>Nombre de tâches total: <?php echo $total; ?></h3>
-            <h3>Nombre de tâches en attente: <?php echo $pending; ?></h3>
-            <h3>Nombre de tâches en cours: <?php echo $en_cours; ?></h3>
-            <h3>Nombre de tâches terminées: <?php echo $finished; ?></h3>
+            <h3>Tâches disponibles: <?php echo $available; ?></h3>
+            <h3>Mes tâches en cours: <?php echo $en_cours; ?></h3>
+            <h3>Mes tâches terminées: <?php echo $finished; ?></h3>
         </div>
     </div>
 </body>
